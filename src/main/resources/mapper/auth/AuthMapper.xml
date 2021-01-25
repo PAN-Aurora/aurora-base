@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurora.base.mapper.auth.AuthMapper">
+
+    <!--通过名称查询用户信息-->
+     <select id="findByUsername" parameterType="com.aurora.base.model.auth.User" resultType="com.aurora.base.model.auth.User">
+        SELECT
+         t.id
+        ,t.username
+        ,t.REAL_NAME
+        ,t.`password`
+        from sys_user t
+        where t.`status` = 0
+        and t.username = #{username}
+
+     </select>
+
+    <!--通过用户id查询角色信息-->
+     <select id="findRoleByUserId" parameterType="com.aurora.base.model.auth.User" resultType="com.aurora.base.model.system.Role">
+          select
+             r.id
+            ,r.`name`
+            ,r.`status`
+            ,r.seq
+            from sys_role r
+            inner join sys_user_role ur on ur.role_id = r.id
+            where ur.user_id = #{id}
+     </select>
+
+    <!-- 通过角色id查询角色信息-->
+    <select id="findRoleById" resultType="com.aurora.base.model.system.Role" >
+      select
+         r.id
+        ,r.`name`
+        ,r.`status`
+        ,r.seq
+        from sys_role r
+        where r.id = #{roleId}
+    </select>
+
+    <!-- 新增用户 -->
+    <insert id="insertUser" parameterType="com.aurora.base.model.auth.User" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user (
+            username,
+            REAL_NAME,
+            password,
+            createdate,
+            status,
+            age,
+            sex
+        )
+         VALUES (#{username},
+         #{realName},
+          #{password},
+          now(),
+          0,
+          #{age},
+          #{sex}
+          )
+    </insert>
+
+    <!-- 新增用户权限-->
+    <insert id="insertRole">
+        insert into sys_user_role (user_id, role_id) VALUES (#{userId}, #{roleId});
+    </insert>
+
+    <!--删除用户对应角色-->
+    <delete id="deleteUserRoleById">
+         delete from  sys_user_role where user_id = #{userId}
+    </delete>
+
+
+</mapper>

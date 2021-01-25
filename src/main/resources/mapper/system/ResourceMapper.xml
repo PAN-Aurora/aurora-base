@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurora.base.mapper.system.ResourceMapper">
+
+
+    <resultMap id="getMenuTree" type="com.aurora.base.model.system.vo.MenuTree">
+        <id property="idKey" column="id"/>
+        <result property="title" column="name"/>
+        <result property="key" column="module"/>
+    </resultMap>
+
+    <!--获取角色对应菜单集合-->
+    <select id="getResourceListByRoleId"  resultType="com.aurora.base.model.system.Resource">
+        select
+         r.id
+        ,r.pid
+        ,r.`name`
+        ,r.module
+        ,r.url
+        from sys_role_resource rr
+       inner join sys_resource r on rr.resource_id = r.id
+       inner join sys_role r1  on  r1.id = rr.role_id
+        where r1.id = #{roleId}
+        and r1.`status` = 0
+        order by r1.seq desc
+    </select>
+
+
+    <!--获取角色对应菜单集合-->
+    <select id="getResourceListByType"  resultType="com.aurora.base.model.system.Resource">
+        select
+        r.module
+        from sys_role_resource rr
+        inner join sys_resource r on rr.resource_id = r.id
+        inner join sys_role r1  on  r1.id = rr.role_id
+        where r1.id = #{roleId}
+        and r.type = 1
+        and r1.`status` = 0
+        order by r1.seq desc
+    </select>
+
+
+
+
+    <!--获取角色对应菜单集合-->
+    <select id="getResourceListByParentId"  resultMap="getMenuTree">
+        select
+         r.id
+        ,r.`name`
+        ,r.module
+        ,r.url
+        FROM sys_resource r
+        where  r.pid = #{pid}
+        and r.`status` = 0
+        order by r.seq desc
+    </select>
+</mapper>

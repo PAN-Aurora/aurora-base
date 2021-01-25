@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aurora.base.mapper.system.RoleMapper">
+
+    <!-- 新增角色 -->
+    <insert id="insertRole" parameterType="com.aurora.base.model.system.Role" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_role (
+        name,
+        seq,
+        description,
+        status
+        )
+         VALUES (#{name}, #{seq},#{description},0);
+    </insert>
+
+
+
+    <!-- 删除角色对应资源  -->
+    <delete id="deleteRoleResuorceById" >
+          delete from sys_role_resource  where role_id = #{roleId}
+    </delete>
+
+    <!--批量增加角色资源-->
+    <insert id="insertBatchRoleResuorce"  parameterType="java.util.List" >
+        INSERT INTO sys_role_resource
+        (
+          role_id,
+          resource_id
+        )
+        values
+
+        <foreach collection="list" item="item"  index="index" separator=",">
+            (
+             #{item.roleId},
+             #{item.resourceId}
+            )
+        </foreach>
+
+    </insert>
+
+
+
+</mapper>
