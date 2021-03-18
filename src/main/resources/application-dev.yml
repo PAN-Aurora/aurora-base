@@ -5,7 +5,9 @@ server:
   servlet:
     application-display-name: aurora-base
     context-path: /aurora-base
-
+    multipart:
+      max-file-size: 200MB #单个文件上传大小
+      max-request-size: 600MB #连续上传文件大小
 spring:
   # 配置数据源
   datasource:
@@ -62,7 +64,7 @@ spring:
 mybatis-plus:
   # xml扫描，多个目录用逗号或者分号分隔
   mapper-locations: classpath*:mapper/**/*.xml
-  type-aliases-package: com.aurora.model
+  type-aliases-package: com.aurora.*.model
   # 以下配置均有默认值,可以不设置
   global-config:
     db-config:
@@ -86,3 +88,9 @@ jwt:
   secret: secret
   expiration: 7200000
   tokenHead: "Bearer "
+
+## 配置系统自定义配置
+aurora:
+  file:
+    root:
+      path: D:\\10_downfile\\   #文件存储路径

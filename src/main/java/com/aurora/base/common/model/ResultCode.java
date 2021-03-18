@@ -21,6 +21,7 @@ public enum ResultCode {
     SERVER_ERROR(500, "服务器内部错误"),
     LIMITER_SERVER_ERROR(500, "服务器内部繁忙"),
     LIMITER_REDIS_ERROR(412, "请求频繁，请稍后请求"),
+    REDIS_ERROR(414, "Redis服务异常"),
     ;
     private int code;
     private String msg;

@@ -1,4 +1,4 @@
-package com.aurora.base;
+package com.aurora;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  **/
 @SpringBootApplication
 @ServletComponentScan
-@MapperScan("com.aurora.base.mapper")
+@MapperScan("com.aurora.*.mapper")
 @EnableSwagger2
 public class AuroraBaseApplication {
     private static final Logger logger = LoggerFactory.getLogger(AuroraBaseApplication.class);
