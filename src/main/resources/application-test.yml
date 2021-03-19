@@ -5,10 +5,6 @@ server:
   servlet:
     application-display-name: aurora-base
     context-path: /aurora-base
-    multipart:
-      max-file-size: 200MB #单个文件上传大小
-      max-request-size: 600MB #连续上传文件大小
-
 
 spring:
   # 配置数据源
@@ -64,6 +60,11 @@ spring:
         min-idle: 0
         max-wait: 100000
     timeout: 5000
+  servlet:
+    multipart:
+      max-file-size: 200MB #单个文件上传大小
+      max-request-size: 600MB #连续上传文件大小
+
 
 
 # mybatis-plus相关配置
@@ -99,7 +100,7 @@ jwt:
 aurora:
   file:
     root:
-      path: D:\\10_downfile\\   #文件存储路径
+      path: D:/10_downfile/uploadFiles/file/   #文件存储路径
   #ES 索引配置
   file_index: route_art_web
   file_type: file_art_type

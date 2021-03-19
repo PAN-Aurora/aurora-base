@@ -24,7 +24,7 @@ public class FileUpload {
 	 * @param filePath
 	 * @return
 	 */
-	public StringBuilder getTextFromWordOrPdf(String filePath) {
+	public static StringBuilder getTextFromWordOrPdf(String filePath) {
 		StringBuilder buffer = new StringBuilder();
 		InputStream is  = null;
 		PDDocument document = null;

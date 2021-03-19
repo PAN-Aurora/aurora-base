@@ -31,6 +31,8 @@
             <maven.compile.source>1.8</maven.compile.source>
             <maven.compile.target>1.8</maven.compile.target>
             <maven.test.skip>true</maven.test.skip>
+            <elasticSearch.version>6.4.2</elasticSearch.version>
+            <poi.version>3.17</poi.version>
         </properties>
 
         <!-- 项目依赖-->
@@ -179,20 +181,21 @@
 
             <!--集成elasticsearch-->
             <dependency>
-                <groupId>org.elasticsearch.client</groupId>
-                <artifactId>transport</artifactId>
-                <version>6.4.2</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.elasticsearch</groupId>
-                        <artifactId>elasticsearch</artifactId>
-                    </exclusion>
-                </exclusions>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${elasticSearch.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.elasticsearch</groupId>
-                <artifactId>elasticsearch</artifactId>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>transport</artifactId>
+                <version>${elasticSearch.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.plugin</groupId>
+                <artifactId>transport-netty4-client</artifactId>
+                <version>${elasticSearch.version}</version>
             </dependency>
 
             <!-- pdf 相关 -->
@@ -206,32 +209,32 @@
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi</artifactId>
-                <version>3.17</version>
+                <version>${poi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-examples</artifactId>
-                <version>3.17</version>
+                <version>${poi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-excelant</artifactId>
-                <version>3.17</version>
+                <version>${poi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml</artifactId>
-                <version>3.17</version>
+                <version>${poi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-ooxml-schemas</artifactId>
-                <version>3.17</version>
+                <version>${poi.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.poi</groupId>
                 <artifactId>poi-scratchpad</artifactId>
-                <version>3.17</version>
+                <version>${poi.version}</version>
             </dependency>
 
             <!--热部署 -->
