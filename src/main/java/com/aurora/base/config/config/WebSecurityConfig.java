@@ -88,6 +88,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     }
 
+    private static final String[] AUTH_WHITELIST = {
+            // -- swagger ui
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/v2/api-docs",
+            "/webjars/**",
+            // swagger-boostrap-ui
+            "/doc.html"
+    };
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         //HttpSecurity 的filter  直接过滤，一般用来配置静态资源相关
@@ -104,7 +114,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/configuration/ui")
 
-                .antMatchers("/configuration/security");
+                .antMatchers("/configuration/security")
+
+                .antMatchers(AUTH_WHITELIST);
     }
 
     @Bean

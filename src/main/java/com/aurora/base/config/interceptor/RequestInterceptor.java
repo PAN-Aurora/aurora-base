@@ -44,8 +44,6 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
             if(isLimit(request)){
                  ResponseModel.responseResult(response, ResultCode.LIMITER_REDIS_ERROR);
                  return false;
-            }else{
-                return true;
             }
         }
 

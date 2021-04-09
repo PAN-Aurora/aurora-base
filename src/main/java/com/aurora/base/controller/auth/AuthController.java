@@ -8,6 +8,7 @@ import com.aurora.base.config.annotation.PassJwtToken;
 import com.aurora.base.config.annotation.SystemLog;
 import com.aurora.base.model.auth.ResponseUserToken;
 import com.aurora.base.model.auth.User;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -24,6 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @author PHQ
  * @create 2020-05-03 12:22
  **/
+@Api("q11111")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {

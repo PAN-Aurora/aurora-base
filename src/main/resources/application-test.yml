@@ -1,6 +1,6 @@
 ##服务端口和地址配置
 server:
-  port: 8081
+  port: 8080
   profiles: test
   servlet:
     application-display-name: aurora-base
@@ -112,3 +112,11 @@ elasticsearch:
   cluster:
     name: es-phq
   pool: 10
+
+security:
+  basic:
+    enabled: false
+
+management:
+  security:
+    enabled: false

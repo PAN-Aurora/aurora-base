@@ -2,6 +2,7 @@ package com.aurora.base.config.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -17,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  **/
 @Configuration
 @EnableSwagger2
-public class Swagger2Config {
+public class Swagger2Config   {
     /**
      * 通过 createRestApi函数来构建一个DocketBean
      * 函数名,可以随意命名,喜欢什么命名就什么命名
@@ -30,7 +31,8 @@ public class Swagger2Config {
                 //控制暴露出去的路径下的实例
                 //如果某个接口不想暴露,可以使用以下注解
                 //@ApiIgnore 这样,该接口就不会暴露在 swagger2 的页面下
-                .apis(RequestHandlerSelectors.basePackage("com.aurora.web"))
+                .apis(RequestHandlerSelectors.basePackage("com.aurora.base.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.aurora.modules.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -38,13 +40,14 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 //页面标题
-                .title("Spring Boot Swagger2 构建 RESTful API")
+                .title("Aurora-base 项目接口")
                 //条款地址
                 .termsOfServiceUrl("http://despairyoke.github.io/")
                 .contact("zwd")
                 .version("1.0")
                 //描述
-                .description("API 描述")
+                .description("API 描述1111")
                 .build();
     }
+
 }

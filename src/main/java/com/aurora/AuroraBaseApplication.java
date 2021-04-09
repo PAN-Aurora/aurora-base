@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
 /**
  * 启动类
  * @author :PHQ
@@ -15,7 +14,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @ServletComponentScan
 @MapperScan("com.aurora.*.mapper")
-@EnableSwagger2
 public class AuroraBaseApplication {
     private static final Logger logger = LoggerFactory.getLogger(AuroraBaseApplication.class);
     public static void main(String[] args) {
