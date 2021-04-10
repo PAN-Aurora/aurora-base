@@ -112,7 +112,7 @@ public class LogAspect {
                 //获取切点参数
                 Object[] args = joinPoint.getArgs();
                 if(args.length>0){
-                    User userLogin = JSONObject.parseObject(JSON.toJSONString(args[0]), User.class);
+                    User userLogin = new User(String.valueOf(args[0]));
                     //假如存在登录用户
                     if (StringUtil.isNotBlank(userLogin.getUsername())) {
                         User user = authService.getUserInfo(userLogin);

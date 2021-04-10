@@ -25,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  * @author PHQ
  * @create 2020-05-03 12:22
  **/
-@Api("q11111")
+@Api(tags = "权限校验",description="权限校验")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -41,7 +41,6 @@ public class AuthController {
 
     /**
      * 登录接口
-     * @param user
      * @return
      */
     @PostMapping(value = "/login")
@@ -50,11 +49,11 @@ public class AuthController {
     @GuavaRateLimiter(permitsPerSecond = 1, timeout = 100, timeunit = TimeUnit.MILLISECONDS, msg = "现在访问人数过多,请稍后再试.")
     @ApiOperation(value="登录接口", notes="通过用户名密码登录 ",httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "user", value = "用户详细实体user", required = true, dataType = "User")
+            @ApiImplicitParam(name = "userName", value = "admin", required = true, dataType = "String"),
+            @ApiImplicitParam(name = "passWord", value = "123456", required = true, dataType = "String")
     })
-    public ResultModel login(@Valid @RequestBody User user){
-
-        ResultModel response = authService.login(user.getUsername(), user.getPassword());
+    public ResultModel login(String userName,String  passWord){
+        ResultModel response = authService.login(userName, passWord);
         return response;
     }
 

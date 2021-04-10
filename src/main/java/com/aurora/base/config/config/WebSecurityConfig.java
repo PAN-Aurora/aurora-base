@@ -66,25 +66,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().accessDeniedHandler(accessDeniedHandler).and()
                 // 由于使用的是JWT，我们这里不需要csrf
                 .csrf().disable()
+
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+
                 // 基于token，所以不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 
                 .authorizeRequests()
+
                 // 对于获取token的rest api要允许匿名访问
                 .antMatchers("/api/**", "/error/**").permitAll()
 
                 //过滤post OPTIONS的请求
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-
-
-
                 // 除上面外的所有请求全部需要鉴权认证
                 .anyRequest().authenticated();
 
-        // 禁用缓存
-        httpSecurity.headers().cacheControl();
+        //禁用缓存
+        //httpSecurity.headers().cacheControl();
 
     }
 
@@ -102,15 +102,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         //HttpSecurity 的filter  直接过滤，一般用来配置静态资源相关
         web.ignoring()
-                .antMatchers("/swagger-ui.html")
-
-                .antMatchers("/swagger-resources/**")
 
                 .antMatchers("/images/**")
-
-                .antMatchers("/webjars/**")
-
-                .antMatchers("/v2/api-docs")
 
                 .antMatchers("/configuration/ui")
 

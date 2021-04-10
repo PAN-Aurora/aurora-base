@@ -4,6 +4,7 @@ import com.aurora.base.api.system.SysLogService;
 import com.aurora.base.common.model.ResultModel;
 import com.aurora.base.config.annotation.SystemLog;
 import com.aurora.base.model.system.vo.SysLogVo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author :PHQ
  * @date：2020/5/19
  **/
+@Api(tags = "日志管理",description="日志管理")
 @RestController
 @RequestMapping("/api/log")
 public class LogController {

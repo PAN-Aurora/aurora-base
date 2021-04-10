@@ -6,6 +6,7 @@ import com.aurora.base.common.model.ResultModel;
 import com.aurora.base.config.annotation.SystemLog;
 import com.aurora.base.model.system.Role;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @author PHQ
  * @create 2020-05-14 22:01
  **/
+@Api(tags = "角色管理",description="角色管理")
 @RestController
 @RequestMapping("/api/role")
 public class RoleController {

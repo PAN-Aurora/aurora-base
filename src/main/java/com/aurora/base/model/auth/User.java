@@ -8,6 +8,9 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -25,6 +28,7 @@ import java.util.List;
  * @author PHQ
  * @create 2020-05-02 20:45
  **/
+@ApiModel(description="用户实体对象" )
 @Data
 @EqualsAndHashCode(callSuper=false)
 @Accessors(chain = true)
@@ -34,31 +38,39 @@ public class User extends PageModel implements UserDetails  {
     @TableId(value = "ID", type = IdType.AUTO)
     private long id;
 
+    @ApiModelProperty(value = "用户名称")
     @TableField("USERNAME")
     private String username;
 
     @TableField("REAL_NAME")
     private String realName;
 
+    @ApiModelProperty(value = "用户密码")
     @TableField("PASSWORD")
     private String password;
 
+    @ApiModelProperty(hidden= true)
     @TableField("SEX")
     private int sex;
 
+    @ApiModelProperty(hidden= true)
     @TableField("AGE")
     private int age;
 
+    @ApiModelProperty(hidden= true)
     @TableField(exist = false)
     @JSONField(serialize = false)
     private Role role;
 
+    @ApiModelProperty(hidden= true)
     @TableField(exist = false)
     private List<Resource> menuList;
 
+    @ApiModelProperty(hidden= true)
     @TableField(exist = false)
     private List<Resource> resourceList;
 
+    @ApiModelProperty(hidden= true)
     @TableField(exist = false)
     @JSONField(serialize = false)
     private Date lastPasswordResetDate;
@@ -79,6 +91,10 @@ public class User extends PageModel implements UserDetails  {
                 this.username = username;
                 this.password = password;
                 this.role = role;
+    }
+    public User(
+            String username){
+                this.username = username;
     }
 
     public User(String username, String password, Role role) {

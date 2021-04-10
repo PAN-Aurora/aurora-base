@@ -9,6 +9,7 @@ import com.aurora.base.common.util.StringUtil;
 import com.aurora.base.config.annotation.SystemLog;
 import com.aurora.modules.api.filelib.FileLibService;
 import com.aurora.modules.model.filelib.Filelib;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -30,7 +31,7 @@ import java.util.Date;
  * @author :PHQ
  * @date：2021/3/18
  **/
-
+@Api(value = "文件库管理",tags = "文件库管理",description="文件库管理",position=0)
 @RestController
 @RequestMapping("/api/filelib")
 public class FileLibController {
@@ -53,10 +54,9 @@ public class FileLibController {
      * @return
      */
     @GetMapping(value = "/getFileLibList")
-    @SystemLog(module="文件管理模块",methods="获取文件列表",url="/filelib/getFileLibList", desc="获取文件分页列表数据")
-    @ApiOperation(value = "文件管理模块",notes = "获取文件列表",httpMethod = "GET")
+    @SystemLog(module="获取文件列表",methods="获取文件列表",url="/filelib/getFileLibList", desc="获取文件分页列表数据")
+    @ApiOperation(value = "获取文件列表",notes = "获取文件列表",httpMethod = "GET")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "filelib", value = "文件实体对象", required = true, dataType = "com.aurora.modules.model.filelib.Filelib")
     })
     public ResultModel getFileLibList(Filelib filelib){
         return fileLibService.getFileLibList(filelib);
@@ -72,7 +72,6 @@ public class FileLibController {
     @SystemLog(module="文件管理模块",methods="保存文件",url="/filelib/saveFileLib", desc="保存文件")
     @ApiOperation(value = "保存文件",notes = "保存文件",httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "filelib", value = "文件实体对象", required = true, dataType = "com.aurora.modules.model.filelib.Filelib")
     })
     public ResultModel saveFileLib(@RequestParam("files")MultipartFile[] files ,Filelib filelib){
         if(files != null && files.length>0){
@@ -155,7 +154,6 @@ public class FileLibController {
     @SystemLog(module="用户管理模块",methods="删除文件",url="/filelib/deleteFileLibById", desc="删除文件")
     @ApiOperation(value = "删除文件",notes = "删除文件",httpMethod = "POST")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "filelib", value = "文件实体对象", required = true, dataType = "com.aurora.modules.model.filelib.Filelib")
     })
     public ResultModel deleteFileLibById(@RequestBody Filelib filelib){
         if(filelib.getFileId() != null ){
