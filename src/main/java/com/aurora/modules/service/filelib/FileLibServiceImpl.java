@@ -38,6 +38,9 @@ public class FileLibServiceImpl implements FileLibService {
         if(StringUtil.isNotBlank(filelib.getFileName())){
             queryWrapper.eq("file_name",filelib.getFileName());
         }
+        if(StringUtil.isNotBlank(filelib.getFileType())){
+            queryWrapper.eq("file_type",filelib.getFileType());
+        }
         IPage<Filelib> userIPage =  fileLibMapper.selectPage(page,queryWrapper);
 
         logger.info(userIPage.getTotal()+"");
