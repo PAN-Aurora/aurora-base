@@ -10,10 +10,13 @@ import com.aurora.modules.model.filelib.Filelib;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.poi.ss.formula.functions.T;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -28,6 +31,8 @@ public class FileLibServiceImpl implements FileLibService {
 
     @Autowired
     FileLibMapper fileLibMapper;
+
+
 
     @Override
     public ResultModel getFileLibList(Filelib filelib) {
@@ -57,6 +62,14 @@ public class FileLibServiceImpl implements FileLibService {
     @Override
     public ResultModel deleteFileLibById(Integer fileId) {
         fileLibMapper.deleteById(fileId);
+        return ResultModel.success(ResultCode.SUCCESS.getCode(),"删除成功！");
+    }
+    @Override
+    public ResultModel deleteFileLibByBatchId(int[] ids) {
+        for(int id:ids){
+            fileLibMapper.deleteById(id);
+            //并删除es
+        }
         return ResultModel.success(ResultCode.SUCCESS.getCode(),"删除成功！");
     }
 

@@ -15,7 +15,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
- * 说明：上传文件
+ * 文件上传 根据不同后缀上传不同类型文件
  */
 public class FileUpload {
 
@@ -40,6 +40,7 @@ public class FileUpload {
 				buffer.append(extractor.getText());
 				extractor.close();
 			} else if (filePath.endsWith("pdf")) {
+
 				File file = new File(filePath);
 				PDFTextStripper pdfStripper = new PDFTextStripper();
 				document = PDDocument.load(file);

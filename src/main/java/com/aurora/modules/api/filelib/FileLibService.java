@@ -2,6 +2,9 @@ package com.aurora.modules.api.filelib;
 
 import com.aurora.base.common.model.ResultModel;
 import com.aurora.modules.model.filelib.Filelib;
+import org.apache.poi.ss.formula.functions.T;
+
+import java.util.List;
 
 /**
  *  文件库业务接口
@@ -30,6 +33,8 @@ public interface FileLibService {
      * @return
      */
     public  ResultModel deleteFileLibById(Integer fileId);
+
+    public  ResultModel deleteFileLibByBatchId(int[] ids);
 
     /**
      * 文件更新

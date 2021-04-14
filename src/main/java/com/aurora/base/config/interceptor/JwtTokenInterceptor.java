@@ -34,6 +34,8 @@ public class JwtTokenInterceptor extends HandlerInterceptorAdapter {
     @Value("${jwt.tokenHead}")
     private String jwt_tokenHead = Global.JWT_TOKENHEAD;
 
+    public static final String KEY = "userId";
+
     private  JwtUtil jwtUtil = new JwtUtil() ;
 
     private RedisUtil redisUtil;
@@ -80,7 +82,9 @@ public class JwtTokenInterceptor extends HandlerInterceptorAdapter {
                 }else{
                     //更新redis token时间
                     redisUtil.expire(username,30L, TimeUnit.MINUTES);
-                   // jwtUtil.refreshToken(auth_token);6
+                   // jwtUtil.refreshToken(auth_token);
+                    long userId=  jwtUtil.getUserIdFromToken(auth_token);
+                    request.setAttribute(KEY,userId);
                 }
             }
         }else{

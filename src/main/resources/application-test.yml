@@ -1,6 +1,6 @@
 ##服务端口和地址配置
 server:
-  port: 8081
+  port: 8088
   profiles: test
   servlet:
     application-display-name: aurora-base
@@ -51,7 +51,7 @@ spring:
   redis:
     open: true   #自定义是否开启
     database: 0
-    host: 127.0.0.1
+    host: 192.168.107.72
     port: 6379
     jedis:
       pool:
@@ -97,26 +97,22 @@ jwt:
   tokenHead: "Bearer "
 
 ## 配置系统自定义配置
-aurora:
+system:
+  ##文件配置
   file:
     root:
       path: D:/10_downfile/uploadFiles/file/   #文件存储路径
-  #ES 索引配置
-  file_index: route_art_web
-  file_type: file_art_type
+    size: 30.00     #文件上传大小
+  #ES索引配置
+  es:
+    file_index: route_art_web
+    file_type: file_art_type
 
 ##ES配置
 elasticsearch:
-  hostName: 192.168.109.99
+  hostName: 127.0.0.1
   port: 9300
   cluster:
     name: es-phq
   pool: 10
 
-security:
-  basic:
-    enabled: false
-
-management:
-  security:
-    enabled: false

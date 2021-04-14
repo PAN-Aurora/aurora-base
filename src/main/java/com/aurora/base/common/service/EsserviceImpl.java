@@ -2,6 +2,7 @@ package com.aurora.base.common.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.aurora.base.common.model.EsPageModel;
+import com.aurora.base.common.model.IndexModel;
 import com.aurora.base.common.util.StringUtil;
 import org.elasticsearch.action.admin.indices.create.CreateIndexResponse;
 import org.elasticsearch.action.admin.indices.exists.indices.IndicesExistsRequest;
@@ -16,7 +17,12 @@ import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.action.update.UpdateRequest;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.text.Text;
+import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.reindex.BulkByScrollResponse;
+import org.elasticsearch.index.reindex.DeleteByQueryAction;
+import org.elasticsearch.index.reindex.DeleteByQueryRequestBuilder;
 import org.elasticsearch.search.SearchHit;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.sort.SortOrder;
@@ -29,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
+import static org.elasticsearch.common.Table.TIMESTAMP;
 
 @Service
 public class EsserviceImpl implements  EsService {
@@ -121,6 +129,43 @@ public class EsserviceImpl implements  EsService {
         DeleteResponse response = transportClient.prepareDelete(index, type, id).execute().actionGet();
 
         LOGGER.info("deleteDataById response status:{},id:{}", response.status().getStatus(), response.getId());
+    }
+
+    /**
+     * 根据查询结果删除数据
+     * @param index  索引
+     * @param list   条件集合
+     */
+    public  void deleteDataByQuery(String index, List<IndexModel> list) {
+
+        //组装删除过滤条件
+        final BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+
+        for(IndexModel model:list){
+            if("rangeQuery".equals(model.getSearchType()) && "time".equals(model.getType())){
+              final QueryBuilder rangeQueryBuilder = QueryBuilders
+                      .rangeQuery(model.getTimeName())
+                      .from(model.getTimeStartValue())
+                      .to(model.getTimeEndValue());
+                boolQueryBuilder.filter(rangeQueryBuilder);
+            }
+
+            if("termQuery".equals(model.getSearchType())){
+                final QueryBuilder tagTermQuery = QueryBuilders
+                        .termQuery(model.getFieldName(), model.getFieldValue());
+                boolQueryBuilder.filter(tagTermQuery);
+            }
+
+        }
+
+        // 删除请求
+        BulkByScrollResponse response = new DeleteByQueryRequestBuilder(transportClient, DeleteByQueryAction.INSTANCE)
+                .filter(boolQueryBuilder)
+                .source(index)
+                .get();
+        long deleted = response.getDeleted();
+
+        LOGGER.info("deleteDataById response status:{},id:{}", response.getStatus(), deleted);
     }
 
     /**

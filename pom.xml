@@ -250,6 +250,12 @@
                 <!--<version>1.0.2</version>-->
             <!--</dependency>-->
 
+            <dependency>
+                <groupId>com.aspose.words</groupId>
+                <artifactId>aspose-words-jdk16</artifactId>
+                <version>1.0.0</version>
+            </dependency>
+
             <!--热部署 -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>

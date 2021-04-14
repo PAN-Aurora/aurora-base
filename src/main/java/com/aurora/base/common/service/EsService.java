@@ -2,6 +2,7 @@ package com.aurora.base.common.service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.aurora.base.common.model.EsPageModel;
+import com.aurora.base.common.model.IndexModel;
 import org.elasticsearch.index.query.QueryBuilder;
 
 import java.util.List;
@@ -19,6 +20,13 @@ public interface EsService {
      * @param id    数据ID
      */
     public  void deleteDataById(String index, String type, String id);
+
+    /**
+     * 根据查询结果删除数据
+     * @param index  索引
+     * @param list   条件集合
+     */
+    public  void deleteDataByQuery(String index, List<IndexModel> list);
 
     /**
      * 通过ID 更新数据
